@@ -7,7 +7,7 @@
 <style>
   :root{
     --sky-1:#1b2340; --sky-2:#3b2a52; --sky-3:#8a4a5e; --sun:#ffd9a0;
-    --hill-far:#2c3357; --hill-near:#232741; --ground:#151a2c;
+    --hill-far:#2c3357; --hill-near:#33283c; --ground:#151a2c;
     --horse-1:#8a5a3b; --horse-2:#5e3a24; --horse-3:#3d2517;
     --bike:#e8eef7; --accent:#55e0c8;
   }
@@ -59,6 +59,18 @@
   .p3{animation:dust 1.9s ease-out 1s infinite}
   .p4{animation:dust 1.9s ease-out 1.35s infinite}
   .sun{animation:flicker 5s ease-in-out infinite}
+
+  /* 边塞动态 */
+  @keyframes flame{0%,100%{transform:scaleY(1) scaleX(1);opacity:.9}50%{transform:scaleY(1.25) scaleX(.9);opacity:.65}}
+  @keyframes smoke{0%{transform:translate(0,0) scale(.5);opacity:.3}100%{transform:translate(-40px,-90px) scale(1.7);opacity:0}}
+  @keyframes wave{0%,100%{transform:skewY(0deg)}50%{transform:skewY(-4deg)}}
+  .flame{transform-box:fill-box;transform-origin:50% 100%;animation:flame .9s ease-in-out infinite}
+  .flame.slow{animation-duration:1.3s}
+  .smoke{transform-box:fill-box;transform-origin:center;animation:smoke 4.5s ease-out infinite}
+  .s2{animation-delay:1.4s}
+  .s3{animation-delay:.8s}
+  .flag{transform-box:fill-box;transform-origin:0% 50%;animation:wave 2.6s ease-in-out infinite}
+  .f2{animation-delay:.7s}
   @media (prefers-reduced-motion: reduce){*{animation:none!important}}
 </style>
 </head>
@@ -87,12 +99,15 @@
         <stop offset="100%" stop-color="#9fb0c9"/>
       </linearGradient>
       <linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#1b2136"/>
-        <stop offset="100%" stop-color="#080a12"/>
+        <stop offset="0" stop-color="#3a2c33"/>
+        <stop offset="100%" stop-color="#0d0a12"/>
       </linearGradient>
       <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
         <feGaussianBlur stdDeviation="6"/>
       </filter>
+      <pattern id="merlon" width="72" height="36" patternUnits="userSpaceOnUse">
+        <rect width="44" height="36" fill="#2b2540"/>
+      </pattern>
     </defs>
 
     <!-- sky -->
@@ -111,10 +126,74 @@
       <circle cx="60" cy="190" r="1.1"/><circle cx="400" cy="200" r="1"/>
     </g>
 
-    <!-- far hills -->
+    <!-- far mountains (边塞) -->
     <g class="hills-far">
-      <path d="M-1200 470 Q -1050 360 -900 460 T -600 470 T -300 450 T 0 470 L 0 700 L -1200 700 Z" fill="var(--hill-far)" opacity=".75"/>
-      <path d="M0 470 Q 150 360 300 460 T 600 470 T 900 450 T 1200 470 L 1200 700 L 0 700 Z" fill="var(--hill-far)" opacity=".75"/>
+      <path d="M-1200 470 Q -1050 340 -900 460 T -600 470 T -300 430 T 0 470 L 0 700 L -1200 700 Z" fill="var(--hill-far)" opacity=".8"/>
+      <path d="M0 470 Q 150 340 300 460 T 600 470 T 900 430 T 1200 470 L 1200 700 L 0 700 Z" fill="var(--hill-far)" opacity=".8"/>
+    </g>
+
+    <!-- 边塞城墙 -->
+    <g id="border-wall">
+      <!-- wall body -->
+      <rect x="-80" y="504" width="1360" height="110" fill="#241f33"/>
+      <g stroke="#3a3350" stroke-width="1.5" opacity=".55">
+        <line x1="-80" y1="536" x2="1280" y2="536"/>
+        <line x1="-80" y1="568" x2="1280" y2="568"/>
+      </g>
+      <!-- battlements -->
+      <rect x="-80" y="470" width="1360" height="36" fill="url(#merlon)"/>
+
+      <!-- 烽火台 left -->
+      <g>
+        <path d="M148 470 L 162 338 L 252 338 L 266 470 Z" fill="#2b2540"/>
+        <path d="M148 470 L 162 338 L 200 338 L 200 470 Z" fill="#332c4a" opacity=".8"/>
+        <rect x="154" y="318" width="112" height="22" rx="4" fill="#3a3350"/>
+        <circle cx="210" cy="404" r="9" fill="#151121"/>
+        <!-- fire -->
+        <g class="flame">
+          <path d="M210 318 C 198 300 204 286 210 274 C 218 288 224 302 210 318 Z" fill="#ffb454" opacity=".9"/>
+        </g>
+      </g>
+
+      <!-- 烽火台 right -->
+      <g>
+        <path d="M968 470 L 980 356 L 1064 356 L 1076 470 Z" fill="#2b2540"/>
+        <path d="M968 470 L 980 356 L 1016 356 L 1016 470 Z" fill="#332c4a" opacity=".8"/>
+        <rect x="972" y="338" width="100" height="20" rx="4" fill="#3a3350"/>
+        <circle cx="1022" cy="412" r="8" fill="#151121"/>
+        <g class="flame slow">
+          <path d="M1022 338 C 1012 322 1018 310 1022 300 C 1030 312 1036 324 1022 338 Z" fill="#ffb454" opacity=".8"/>
+        </g>
+      </g>
+
+      <!-- 烽烟 -->
+      <g fill="#8f86a8" opacity=".22">
+        <circle class="smoke s1" cx="210" cy="270" r="16"/>
+        <circle class="smoke s2" cx="210" cy="260" r="22"/>
+        <circle class="smoke s3" cx="1022" cy="296" r="14"/>
+      </g>
+
+      <!-- 战旗 -->
+      <g>
+        <line x1="120" y1="470" x2="120" y2="384" stroke="#3a3350" stroke-width="5"/>
+        <path class="flag f1" d="M120 386 C 152 380 176 394 196 388 L 196 424 C 176 430 152 416 120 422 Z" fill="#8a2b2b"/>
+        <line x1="1116" y1="470" x2="1116" y2="392" stroke="#3a3350" stroke-width="5"/>
+        <path class="flag f2" d="M1116 394 C 1148 388 1170 402 1190 396 L 1190 430 C 1170 436 1148 422 1116 428 Z" fill="#8a2b2b"/>
+      </g>
+
+      <!-- 城墙上的哨兵剪影 -->
+      <g fill="#100d19" stroke="#4c4370" stroke-width="1" opacity=".95">
+        <g transform="translate(214 318) scale(1.1)">
+          <circle cx="0" cy="-46" r="10"/>
+          <path d="M-11 -34 L 11 -34 L 8 0 L -8 0 Z"/>
+          <line x1="14" y1="-52" x2="6" y2="0" stroke="#151121" stroke-width="4"/>
+        </g>
+        <g transform="translate(1018 338) scale(1)">
+          <circle cx="0" cy="-42" r="9"/>
+          <path d="M-10 -31 L 10 -31 L 7 0 L -7 0 Z"/>
+          <line x1="-13" y1="-48" x2="-5" y2="0" stroke="#151121" stroke-width="4"/>
+        </g>
+      </g>
     </g>
 
     <!-- near hills -->
@@ -196,6 +275,25 @@
         <!-- bridle -->
         <path d="M840 300 C 858 330 866 352 862 384" stroke="#c9a227" stroke-width="4" fill="none"/>
         <path d="M812 336 C 838 342 866 344 892 340" stroke="#c9a227" stroke-width="4" fill="none"/>
+      </g>
+
+      <!-- 战马甲具 -->
+      <g id="barding">
+        <!-- 鞍垫 / saddle blanket -->
+        <path d="M470 404 C 520 386 600 384 648 400 L 652 452 C 604 470 520 470 470 452 Z" fill="#8a2b2b" opacity=".95"/>
+        <path d="M470 452 C 520 470 604 470 652 452 L 654 470 C 606 490 518 490 468 470 Z" fill="#c9a227" opacity=".9"/>
+        <!-- 胸甲 -->
+        <path d="M700 470 C 726 492 736 528 726 556 C 706 546 692 516 686 486 Z" fill="#3a3350" stroke="#8fa3bf" stroke-width="2" opacity=".95"/>
+        <!-- 颈甲 -->
+        <g fill="#3a3350" stroke="#8fa3bf" stroke-width="1.6" opacity=".95">
+          <path d="M712 440 C 736 400 758 366 782 340 L 800 354 C 776 382 754 418 734 456 Z"/>
+          <path d="M760 366 C 780 344 796 326 812 314 L 826 330 C 808 344 792 362 776 380 Z" opacity=".8"/>
+        </g>
+        <!-- 头盔羽饰 -->
+        <g class="plume">
+          <path d="M816 292 C 806 268 812 250 826 240 C 830 258 828 276 824 292 Z" fill="#c9a227"/>
+          <path d="M816 296 C 800 276 800 258 810 246 C 816 264 818 280 820 296 Z" fill="#ffb454" opacity=".85"/>
+        </g>
       </g>
 
       <!-- rim light from the moon on the horse's back -->
@@ -285,7 +383,7 @@
     </g>
   </svg>
 
-  <div class="title">S3AI · 抽象艺术<b>自行车骑马</b></div>
+  <div class="title">S3AI · 抽象艺术<b>自行车骑马 · 边塞战马</b></div>
   <div class="hint">svg + css animation</div>
 </div>
 </body>
