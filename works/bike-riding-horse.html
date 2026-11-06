@@ -223,58 +223,122 @@
       <!-- shadow -->
       <ellipse cx="560" cy="648" rx="240" ry="18" fill="#000" opacity=".45" filter="url(#soft)"/>
 
-      <!-- horse legs (behind body first) -->
-      <g stroke-linecap="round">
-        <g class="leg bl">
-          <path d="M474 528 C 462 560 452 596 450 630 C 449 642 452 648 460 650" stroke="#6b4227" stroke-width="26" fill="none"/>
-          <ellipse cx="454" cy="651" rx="17" ry="9" fill="#2b1a10"/>
+      <!-- 马腿（后层） -->
+      <g stroke-linecap="round" fill="none">
+        <g class="leg bl" transform="translate(-38 0)">
+          <path d="M486 498 C 470 528 458 566 454 594 C 452 610 453 624 457 634" stroke="#6b4227" stroke-width="29"/>
+          <path d="M457 634 C 454 642 456 648 462 651" stroke="#5e3a24" stroke-width="17"/>
+          <path d="M466 630 C 452 631 447 641 449 652 C 452 659 470 660 476 653 C 479 644 476 632 466 630 Z" fill="#2b1a10" stroke="none"/>
+          <path d="M450 648 C 460 645 472 646 478 650" stroke="#8a7a63" stroke-width="2" opacity=".5"/>
         </g>
-        <g class="leg fr">
-          <path d="M694 524 C 706 556 714 594 716 628 C 717 640 720 645 727 648" stroke="#7c4d30" stroke-width="24" fill="none"/>
-          <ellipse cx="722" cy="649" rx="16" ry="9" fill="#2b1a10"/>
+        <g class="leg fr" transform="translate(-14 0)">
+          <path d="M700 486 C 712 516 720 558 722 590 C 723 606 722 620 719 630" stroke="#7c4d30" stroke-width="26"/>
+          <path d="M719 630 C 722 638 721 645 715 648" stroke="#5e3a24" stroke-width="16"/>
+          <path d="M708 628 C 694 629 689 639 691 650 C 694 657 712 658 718 651 C 721 642 718 630 708 628 Z" fill="#2b1a10" stroke="none"/>
+          <path d="M692 646 C 702 643 714 644 720 648" stroke="#8a7a63" stroke-width="2" opacity=".5"/>
         </g>
       </g>
 
-      <!-- tail -->
+      <!-- 尾巴 -->
       <g class="tail">
-        <path d="M368 452 C 300 448 286 512 320 556 C 336 520 352 500 386 492 Z" fill="#3d2517"/>
-      </g>
-
-      <!-- body -->
-      <ellipse cx="560" cy="470" rx="192" ry="96" fill="url(#horseGrad)"/>
-      <ellipse cx="560" cy="430" rx="170" ry="62" fill="#a06b47" opacity=".35"/>
-
-      <!-- legs front layer -->
-      <g stroke-linecap="round">
-        <g class="leg fl">
-          <path d="M504 526 C 496 558 490 596 488 630 C 487 642 490 648 498 650" stroke="#7c4d30" stroke-width="26" fill="none"/>
-          <ellipse cx="492" cy="651" rx="17" ry="9" fill="#2b1a10"/>
-        </g>
-        <g class="leg br">
-          <path d="M664 528 C 676 560 684 596 686 630 C 687 642 690 648 697 650" stroke="#6b4227" stroke-width="24" fill="none"/>
-          <ellipse cx="692" cy="651" rx="16" ry="9" fill="#2b1a10"/>
+        <path d="M384 424 C 336 414 300 452 306 500 C 310 534 330 560 352 572 C 340 538 342 496 366 470 C 378 456 388 442 396 434 Z" fill="#3d2517"/>
+        <path d="M388 428 C 350 424 322 452 322 492 C 322 520 334 546 352 560 C 340 528 342 492 362 468 C 374 452 386 440 394 434 Z" fill="#523320" opacity=".85"/>
+        <g stroke="#2b1a10" stroke-width="2" opacity=".5" fill="none">
+          <path d="M382 436 C 350 442 330 474 336 512"/>
+          <path d="M378 444 C 348 456 336 486 344 520"/>
         </g>
       </g>
 
-      <!-- neck -->
-      <path d="M700 430 C 740 380 770 340 800 314 L 846 342 C 806 380 772 428 742 470 Z" fill="url(#horseGrad)"/>
-      <!-- mane -->
-      <path d="M700 424 C 726 372 754 336 792 306 L 810 318 C 776 350 750 392 726 438 Z" fill="#2b1a10" opacity=".9"/>
+      <!-- 身体 -->
+      <path d="M704 400 C 668 380 604 372 544 375 C 476 378 418 392 390 424 C 368 450 366 488 380 514 C 396 544 442 558 502 558 C 562 558 612 548 652 530 C 692 512 716 480 719 450 C 721 426 715 408 704 400 Z" fill="url(#horseGrad)"/>
+      <!-- 背脊高光 -->
+      <path d="M398 418 C 470 384 620 372 700 402" stroke="#b98055" stroke-width="6" opacity=".35" fill="none" stroke-linecap="round"/>
+      <!-- 腹部阴影 -->
+      <path d="M396 500 C 440 542 600 552 668 512 C 636 548 540 562 470 552 C 430 546 406 526 396 500 Z" fill="#3d2517" opacity=".45"/>
+      <!-- 肌肉线条 -->
+      <!-- 肩部 / 臀部肌肉块 -->
+      <g opacity=".55">
+        <ellipse cx="452" cy="498" rx="52" ry="46" fill="#6b4227" transform="rotate(-8 452 498)"/>
+        <ellipse cx="672" cy="492" rx="46" ry="42" fill="#7c4d30" transform="rotate(6 672 492)"/>
+        <ellipse cx="452" cy="490" rx="34" ry="26" fill="#8a5a3b" opacity=".5"/>
+        <ellipse cx="674" cy="486" rx="30" ry="24" fill="#8a5a3b" opacity=".45"/>
+      </g>
+      <g stroke="#3d2517" stroke-width="2.5" opacity=".28" fill="none" stroke-linecap="round">
+        <path d="M432 470 C 470 486 520 488 560 478"/>
+        <path d="M652 452 C 674 470 682 496 674 518"/>
+        <path d="M418 442 C 440 462 446 486 440 508"/>
+      </g>
+      <!-- 斑点 -->
+      <g fill="#c08a5c" opacity=".16">
+        <ellipse cx="470" cy="432" rx="16" ry="11"/><ellipse cx="520" cy="412" rx="12" ry="8"/>
+        <ellipse cx="600" cy="428" rx="18" ry="12"/><ellipse cx="646" cy="460" rx="11" ry="8"/>
+        <ellipse cx="430" cy="486" rx="10" ry="7"/><ellipse cx="556" cy="500" rx="14" ry="9"/>
+      </g>
 
-      <!-- head -->
+      <!-- 马腿（前层） -->
+      <g stroke-linecap="round" fill="none">
+        <g class="leg fl" transform="translate(-30 0)">
+          <path d="M520 500 C 512 530 506 566 504 592 C 503 608 505 622 509 632" stroke="#7c4d30" stroke-width="27"/>
+          <path d="M509 632 C 506 640 508 646 514 649" stroke="#5e3a24" stroke-width="16"/>
+          <path d="M518 628 C 504 629 499 639 501 650 C 504 657 522 658 528 651 C 531 642 528 630 518 628 Z" fill="#2b1a10" stroke="none"/>
+          <path d="M502 646 C 512 643 524 644 530 648" stroke="#8a7a63" stroke-width="2" opacity=".5"/>
+        </g>
+        <g class="leg br" transform="translate(-40 0)">
+          <path d="M672 494 C 684 524 692 564 694 592 C 695 608 694 620 691 630" stroke="#6b4227" stroke-width="25"/>
+          <path d="M691 630 C 694 638 693 645 687 648" stroke="#5e3a24" stroke-width="15"/>
+          <path d="M680 627 C 667 628 662 638 664 649 C 667 656 684 657 690 650 C 693 641 690 629 680 627 Z" fill="#2b1a10" stroke="none"/>
+          <path d="M664 645 C 674 642 686 643 692 647" stroke="#8a7a63" stroke-width="2" opacity=".5"/>
+        </g>
+      </g>
+
+      <!-- 脖子 -->
+      <path d="M712 452 C 744 402 776 358 806 324 L 866 350 C 834 394 796 448 756 490 Z" fill="url(#horseGrad)"/>
+      <path d="M742 462 C 772 418 800 378 826 348" stroke="#b98055" stroke-width="5" opacity=".22" fill="none" stroke-linecap="round"/>
+      <!-- 鬃毛 -->
+      <g fill="#2b1a10">
+        <path d="M706 448 C 730 396 762 350 802 316 L 822 330 C 786 362 756 410 728 462 Z" opacity=".95"/>
+        <path d="M712 444 C 736 398 764 358 798 326 L 806 332 C 774 366 746 408 722 452 Z" fill="#3d2517"/>
+      </g>
+      <g stroke="#151009" stroke-width="2.5" opacity=".55" fill="none" stroke-linecap="round">
+        <path d="M714 442 C 730 404 754 366 782 338"/>
+        <path d="M722 452 C 740 414 766 376 794 348"/>
+        <path d="M708 452 C 722 416 742 384 768 356"/>
+      </g>
+
+      <!-- 头 -->
       <g>
-        <path d="M790 300 C 812 286 846 288 862 306 L 906 344 C 916 356 912 372 898 378 L 846 392 C 820 396 796 380 788 356 Z" fill="#8a5a3b"/>
-        <path d="M866 310 L 900 344 C 908 354 906 366 896 372 L 860 380 Z" fill="#a06b47" opacity=".5"/>
-        <!-- ear -->
-        <path d="M800 292 L 806 258 L 828 288 Z" fill="#7c4d30"/>
-        <!-- eye -->
-        <circle cx="836" cy="330" r="7" fill="#150d08"/>
-        <circle cx="838" cy="328" r="2.4" fill="#fff" opacity=".85"/>
-        <!-- nostril -->
-        <circle cx="888" cy="358" r="3.2" fill="#3d2517"/>
-        <!-- bridle -->
-        <path d="M840 300 C 858 330 866 352 862 384" stroke="#c9a227" stroke-width="4" fill="none"/>
-        <path d="M812 336 C 838 342 866 344 892 340" stroke="#c9a227" stroke-width="4" fill="none"/>
+        <!-- 耳 -->
+        <path d="M812 300 C 806 282 810 266 820 256 C 826 272 826 288 824 302 Z" fill="#7c4d30"/>
+        <path d="M816 296 C 813 284 815 274 820 268 C 823 278 823 288 822 296 Z" fill="#3d2517" opacity=".6"/>
+        <path d="M828 294 C 828 276 836 262 846 256 C 848 272 842 288 836 300 Z" fill="#6b4227"/>
+        <!-- 头颅到口鼻 -->
+        <path d="M806 306 C 826 288 856 288 874 304 C 888 318 900 340 902 356 C 904 374 894 388 878 388 C 858 388 838 372 824 352 C 810 332 798 322 806 306 Z" fill="#8a5a3b"/>
+        <!-- 面部高光 -->
+        <path d="M846 300 C 862 302 874 312 880 326 C 884 338 882 350 874 356 C 866 342 856 320 846 300 Z" fill="#a06b47" opacity=".55"/>
+        <!-- 颊部阴影与下颌 -->
+        <path d="M824 352 C 838 366 856 380 872 384 C 858 388 840 380 828 366 Z" fill="#3d2517" opacity=".45"/>
+        <path d="M860 330 C 874 344 886 360 892 374" stroke="#3d2517" stroke-width="2" opacity=".35" fill="none"/>
+        <!-- 鼻孔 -->
+        <ellipse cx="890" cy="360" rx="5.5" ry="4" fill="#3d2517" transform="rotate(20 890 360)"/>
+        <!-- 嘴 -->
+        <path d="M896 376 C 902 378 904 384 900 388" stroke="#3d2517" stroke-width="2" fill="none" opacity=".8"/>
+        <!-- 眼睛 -->
+        <ellipse cx="842" cy="332" rx="8" ry="7" fill="#150d08"/>
+        <circle cx="844.5" cy="329.5" r="2.6" fill="#fff" opacity=".9"/>
+        <path d="M833 326 C 838 322 849 321 854 325" stroke="#150d08" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        <!-- 额前碎毛 -->
+        <g stroke="#2b1a10" stroke-width="3" fill="none" stroke-linecap="round" opacity=".9">
+          <path d="M816 302 C 822 292 830 286 838 284"/>
+          <path d="M808 306 C 812 296 818 288 826 284"/>
+        </g>
+        <!-- 笼头 -->
+        <g stroke="#c9a227" stroke-width="4" fill="none" stroke-linecap="round">
+          <path d="M836 296 C 852 320 862 346 858 380"/>
+          <path d="M812 334 C 838 340 866 342 894 338"/>
+          <path d="M876 300 C 884 320 892 342 894 360"/>
+        </g>
+        <!-- 缰绳 -->
+        <path d="M858 382 C 838 400 812 412 790 412" stroke="#8a2b2b" stroke-width="3.5" fill="none" stroke-linecap="round" opacity=".85"/>
       </g>
 
       <!-- 战马甲具 -->
@@ -294,6 +358,18 @@
           <path d="M816 292 C 806 268 812 250 826 240 C 830 258 828 276 824 292 Z" fill="#c9a227"/>
           <path d="M816 296 C 800 276 800 258 810 246 C 816 264 818 280 820 296 Z" fill="#ffb454" opacity=".85"/>
         </g>
+      </g>
+
+      <!-- 颈脊鬃毛（覆在甲具之上） -->
+      <g>
+        <path d="M714 450 C 740 402 770 356 806 322 C 796 348 780 380 764 410 C 748 440 734 466 726 486 C 720 474 716 462 714 450 Z" fill="#4a2d1b"/>
+        <path d="M740 414 C 762 380 786 348 812 326 C 806 350 792 376 776 400 Z" fill="#5b3a24"/>
+        <path d="M714 450 C 740 402 770 356 806 322 C 800 344 786 374 770 404 Z" fill="#6b452a" opacity=".55"/>
+      </g>
+      <g stroke="#1b120b" stroke-width="2.4" opacity=".6" fill="none" stroke-linecap="round">
+        <path d="M720 444 C 736 408 758 372 784 344"/>
+        <path d="M730 458 C 748 420 772 384 798 356"/>
+        <path d="M742 424 C 762 392 786 364 810 342"/>
       </g>
 
       <!-- rim light from the moon on the horse's back -->
