@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>自行车骑马 · Bike Riding a Horse</title>
+<style>
+  :root{
+    --sky-1:#1b2340; --sky-2:#3b2a52; --sky-3:#8a4a5e; --sun:#ffd9a0;
+    --hill-far:#2c3357; --hill-near:#232741; --ground:#151a2c;
+    --horse-1:#8a5a3b; --horse-2:#5e3a24; --horse-3:#3d2517;
+    --bike:#e8eef7; --accent:#55e0c8;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0}
+  body{
+    background:radial-gradient(120% 120% at 50% 0%,#0e1120 0%,#080a14 60%,#05060c 100%);
+    display:grid;place-items:center;font-family:ui-sans-serif,system-ui,"PingFang SC","Microsoft YaHei",sans-serif;
+    color:#cfd8ee;overflow:hidden;
+  }
+  .stage{width:min(94vw,1200px);aspect-ratio:12/7;position:relative;
+    border-radius:22px;overflow:hidden;
+    box-shadow:0 30px 80px -20px #000,0 0 0 1px #ffffff14;
+    background:#0b0e18}
+  .stage::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(90% 70% at 50% 30%,transparent 40%,#000a 100%)}
+  svg{width:100%;height:100%;display:block}
+  .title{position:absolute;left:22px;top:18px;font-size:13px;letter-spacing:.28em;
+    text-transform:uppercase;color:#ffffff8c}
+  .title b{display:block;font-size:22px;letter-spacing:.06em;color:#fff;margin-top:6px;font-weight:600}
+  .hint{position:absolute;right:20px;bottom:16px;font-size:12px;color:#ffffff5e}
+
+  /* ---- motion ---- */
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  @keyframes bob-bike{0%,100%{transform:translateY(0) rotate(-1.2deg)}50%{transform:translateY(-14px) rotate(1.2deg)}}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @keyframes gallop-a{0%,100%{transform:rotate(24deg)}50%{transform:rotate(-26deg)}}
+  @keyframes gallop-b{0%,100%{transform:rotate(-22deg)}50%{transform:rotate(26deg)}}
+  @keyframes tail{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(10deg)}}
+  @keyframes dust{0%{transform:translate(0,0) scale(.6);opacity:0}
+    30%{opacity:.55}100%{transform:translate(-260px,-40px) scale(1.6);opacity:0}}
+  @keyframes scroll{to{transform:translateX(-1200px)}}
+  @keyframes flicker{0%,100%{opacity:.85}50%{opacity:.5}}
+
+  .scene{animation:bob .62s ease-in-out infinite}
+  .bike{animation:bob-bike .62s ease-in-out infinite;transform-origin:center}
+  .wheel{animation:spin .55s linear infinite;transform-box:fill-box;transform-origin:center}
+  .wheel.back{animation-duration:.62s}
+  .crank{animation:spin .5s linear infinite;transform-box:fill-box;transform-origin:center}
+  .leg.fl{transform-box:fill-box;transform-origin:50% 4%;animation:gallop-a .62s ease-in-out infinite}
+  .leg.fr{transform-box:fill-box;transform-origin:50% 4%;animation:gallop-b .62s ease-in-out infinite}
+  .leg.bl{transform-box:fill-box;transform-origin:50% 4%;animation:gallop-b .62s ease-in-out infinite}
+  .leg.br{transform-box:fill-box;transform-origin:50% 4%;animation:gallop-a .62s ease-in-out infinite}
+  .tail{transform-box:fill-box;transform-origin:0% 20%;animation:tail .62s ease-in-out infinite}
+  .hills-far{animation:scroll 9s linear infinite}
+  .hills-near{animation:scroll 5.2s linear infinite}
+  .p1{animation:dust 1.9s ease-out infinite}
+  .p2{animation:dust 1.9s ease-out .5s infinite}
+  .p3{animation:dust 1.9s ease-out 1s infinite}
+  .p4{animation:dust 1.9s ease-out 1.35s infinite}
+  .sun{animation:flicker 5s ease-in-out infinite}
+  @media (prefers-reduced-motion: reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="stage">
+  <svg viewBox="0 0 1200 700" role="img" aria-label="一辆自行车骑在马背上奔跑">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#141a30"/>
+        <stop offset="45%" stop-color="#2a2344"/>
+        <stop offset="72%" stop-color="#5c3350"/>
+        <stop offset="100%" stop-color="#8a4a5e"/>
+      </linearGradient>
+      <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+        <stop offset="0" stop-color="#ffd9a0" stop-opacity=".95"/>
+        <stop offset="55%" stop-color="#ff9f6b" stop-opacity=".35"/>
+        <stop offset="100%" stop-color="#ff9f6b" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="horseGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#a06b47"/>
+        <stop offset="55%" stop-color="#7c4d30"/>
+        <stop offset="100%" stop-color="#4d2f1c"/>
+      </linearGradient>
+      <linearGradient id="bikeGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#f4f8ff"/>
+        <stop offset="100%" stop-color="#9fb0c9"/>
+      </linearGradient>
+      <linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#1b2136"/>
+        <stop offset="100%" stop-color="#080a12"/>
+      </linearGradient>
+      <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur stdDeviation="6"/>
+      </filter>
+    </defs>
+
+    <!-- sky -->
+    <rect width="1200" height="700" fill="url(#sky)"/>
+    <g class="sun">
+      <circle cx="880" cy="190" r="190" fill="url(#glow)"/>
+      <circle cx="880" cy="190" r="46" fill="#ffe3b8"/>
+    </g>
+
+    <!-- stars -->
+    <g fill="#ffffff" opacity=".5">
+      <circle cx="120" cy="80" r="1.6"/><circle cx="210" cy="140" r="1.2"/>
+      <circle cx="330" cy="60" r="1.8"/><circle cx="470" cy="120" r="1.1"/>
+      <circle cx="640" cy="70" r="1.5"/><circle cx="760" cy="140" r="1.2"/>
+      <circle cx="980" cy="90" r="1.7"/><circle cx="1090" cy="150" r="1.3"/>
+      <circle cx="60" cy="190" r="1.1"/><circle cx="400" cy="200" r="1"/>
+    </g>
+
+    <!-- far hills -->
+    <g class="hills-far">
+      <path d="M-1200 470 Q -1050 360 -900 460 T -600 470 T -300 450 T 0 470 L 0 700 L -1200 700 Z" fill="var(--hill-far)" opacity=".75"/>
+      <path d="M0 470 Q 150 360 300 460 T 600 470 T 900 450 T 1200 470 L 1200 700 L 0 700 Z" fill="var(--hill-far)" opacity=".75"/>
+    </g>
+
+    <!-- near hills -->
+    <g class="hills-near">
+      <path d="M-1200 560 Q -1000 470 -800 555 T -400 560 T 0 545 L 0 700 L -1200 700 Z" fill="var(--hill-near)"/>
+      <path d="M0 560 Q 200 470 400 555 T 800 560 T 1200 545 L 1200 700 L 0 700 Z" fill="var(--hill-near)"/>
+    </g>
+
+    <!-- ground -->
+    <rect y="600" width="1200" height="100" fill="url(#groundGrad)"/>
+    <g stroke="#ffffff" stroke-opacity=".07" stroke-width="2">
+      <line x1="40" y1="628" x2="320" y2="628"/>
+      <line x1="420" y1="652" x2="760" y2="652"/>
+      <line x1="880" y1="632" x2="1160" y2="632"/>
+    </g>
+
+    <!-- dust -->
+    <g fill="#c9b6a4" opacity=".5">
+      <circle class="p1" cx="300" cy="612" r="10"/>
+      <circle class="p2" cx="280" cy="600" r="7"/>
+      <circle class="p3" cx="330" cy="622" r="12"/>
+      <circle class="p4" cx="295" cy="606" r="8"/>
+    </g>
+
+    <!-- ===== horse + bike ===== -->
+    <g class="scene">
+      <!-- shadow -->
+      <ellipse cx="560" cy="648" rx="240" ry="18" fill="#000" opacity=".45" filter="url(#soft)"/>
+
+      <!-- horse legs (behind body first) -->
+      <g stroke-linecap="round">
+        <g class="leg bl">
+          <path d="M474 528 C 462 560 452 596 450 630 C 449 642 452 648 460 650" stroke="#6b4227" stroke-width="26" fill="none"/>
+          <ellipse cx="454" cy="651" rx="17" ry="9" fill="#2b1a10"/>
+        </g>
+        <g class="leg fr">
+          <path d="M694 524 C 706 556 714 594 716 628 C 717 640 720 645 727 648" stroke="#7c4d30" stroke-width="24" fill="none"/>
+          <ellipse cx="722" cy="649" rx="16" ry="9" fill="#2b1a10"/>
+        </g>
+      </g>
+
+      <!-- tail -->
+      <g class="tail">
+        <path d="M368 452 C 300 448 286 512 320 556 C 336 520 352 500 386 492 Z" fill="#3d2517"/>
+      </g>
+
+      <!-- body -->
+      <ellipse cx="560" cy="470" rx="192" ry="96" fill="url(#horseGrad)"/>
+      <ellipse cx="560" cy="430" rx="170" ry="62" fill="#a06b47" opacity=".35"/>
+
+      <!-- legs front layer -->
+      <g stroke-linecap="round">
+        <g class="leg fl">
+          <path d="M504 526 C 496 558 490 596 488 630 C 487 642 490 648 498 650" stroke="#7c4d30" stroke-width="26" fill="none"/>
+          <ellipse cx="492" cy="651" rx="17" ry="9" fill="#2b1a10"/>
+        </g>
+        <g class="leg br">
+          <path d="M664 528 C 676 560 684 596 686 630 C 687 642 690 648 697 650" stroke="#6b4227" stroke-width="24" fill="none"/>
+          <ellipse cx="692" cy="651" rx="16" ry="9" fill="#2b1a10"/>
+        </g>
+      </g>
+
+      <!-- neck -->
+      <path d="M700 430 C 740 380 770 340 800 314 L 846 342 C 806 380 772 428 742 470 Z" fill="url(#horseGrad)"/>
+      <!-- mane -->
+      <path d="M700 424 C 726 372 754 336 792 306 L 810 318 C 776 350 750 392 726 438 Z" fill="#2b1a10" opacity=".9"/>
+
+      <!-- head -->
+      <g>
+        <path d="M790 300 C 812 286 846 288 862 306 L 906 344 C 916 356 912 372 898 378 L 846 392 C 820 396 796 380 788 356 Z" fill="#8a5a3b"/>
+        <path d="M866 310 L 900 344 C 908 354 906 366 896 372 L 860 380 Z" fill="#a06b47" opacity=".5"/>
+        <!-- ear -->
+        <path d="M800 292 L 806 258 L 828 288 Z" fill="#7c4d30"/>
+        <!-- eye -->
+        <circle cx="836" cy="330" r="7" fill="#150d08"/>
+        <circle cx="838" cy="328" r="2.4" fill="#fff" opacity=".85"/>
+        <!-- nostril -->
+        <circle cx="888" cy="358" r="3.2" fill="#3d2517"/>
+        <!-- bridle -->
+        <path d="M840 300 C 858 330 866 352 862 384" stroke="#c9a227" stroke-width="4" fill="none"/>
+        <path d="M812 336 C 838 342 866 344 892 340" stroke="#c9a227" stroke-width="4" fill="none"/>
+      </g>
+
+      <!-- rim light from the moon on the horse's back -->
+      <path d="M392 430 C 470 372 660 356 742 404" stroke="#ffd9a0" stroke-width="5" fill="none" opacity=".35" stroke-linecap="round"/>
+
+      <!-- ===== bicycle on the horse's back ===== -->
+      <g class="bike">
+        <g transform="translate(0,8) rotate(-4 590 330)">
+          <!-- contact shadow: the bike sits on the back -->
+          <ellipse cx="588" cy="378" rx="128" ry="12" fill="#000" opacity=".35" filter="url(#soft)"/>
+          <!-- rear wheel -->
+          <g transform="translate(505 336)">
+            <g class="wheel back">
+              <circle r="46" fill="none" stroke="#1a1f2e" stroke-width="9"/>
+              <circle r="46" fill="none" stroke="var(--accent)" stroke-width="2" opacity=".55"/>
+              <g stroke="#8fa3bf" stroke-width="2" opacity=".85">
+                <line x1="-38" y1="0" x2="38" y2="0"/>
+                <line x1="0" y1="-38" x2="0" y2="38"/>
+                <line x1="-27" y1="-27" x2="27" y2="27"/>
+                <line x1="-27" y1="27" x2="27" y2="-27"/>
+                <line x1="-36" y1="-13" x2="36" y2="13"/>
+                <line x1="-36" y1="13" x2="36" y2="-13"/>
+                <line x1="-13" y1="-36" x2="13" y2="36"/>
+                <line x1="13" y1="-36" x2="-13" y2="36"/>
+              </g>
+              <circle r="6" fill="#cfd8ee"/>
+            </g>
+          </g>
+
+          <!-- front wheel -->
+          <g transform="translate(672 340)">
+            <g class="wheel">
+              <circle r="46" fill="none" stroke="#1a1f2e" stroke-width="9"/>
+              <circle r="46" fill="none" stroke="var(--accent)" stroke-width="2" opacity=".55"/>
+              <g stroke="#8fa3bf" stroke-width="2" opacity=".85">
+                <line x1="-38" y1="0" x2="38" y2="0"/>
+                <line x1="0" y1="-38" x2="0" y2="38"/>
+                <line x1="-27" y1="-27" x2="27" y2="27"/>
+                <line x1="-27" y1="27" x2="27" y2="-27"/>
+                <line x1="-36" y1="-13" x2="36" y2="13"/>
+                <line x1="-36" y1="13" x2="36" y2="-13"/>
+                <line x1="-13" y1="-36" x2="13" y2="36"/>
+                <line x1="13" y1="-36" x2="-13" y2="36"/>
+              </g>
+              <circle r="6" fill="#cfd8ee"/>
+            </g>
+          </g>
+
+          <!-- frame -->
+          <g stroke="url(#bikeGrad)" stroke-width="9" fill="none" stroke-linecap="round">
+            <line x1="505" y1="336" x2="588" y2="352"/>   <!-- chainstay -->
+            <line x1="588" y1="352" x2="546" y2="286"/>   <!-- seat tube -->
+            <line x1="546" y1="286" x2="640" y2="292"/>   <!-- top tube -->
+            <line x1="588" y1="352" x2="640" y2="292"/>   <!-- down tube -->
+            <line x1="640" y1="292" x2="672" y2="340"/>   <!-- fork -->
+          </g>
+          <!-- seat post + saddle -->
+          <g stroke="#cfd8ee" stroke-width="7" fill="none"><line x1="546" y1="286" x2="540" y2="270"/></g>
+          <path d="M516 268 C 528 262 556 262 566 268 C 556 276 524 276 516 268 Z" fill="#2a3040" stroke="#cfd8ee" stroke-width="2"/>
+          <!-- handlebar -->
+          <g stroke="#cfd8ee" stroke-width="7" fill="none" stroke-linecap="round">
+            <line x1="640" y1="292" x2="648" y2="258"/>
+            <path d="M648 258 C 664 252 676 262 668 274"/>
+          </g>
+          <!-- headlight -->
+          <circle cx="686" cy="286" r="7" fill="#ffe9b0"/>
+          <circle cx="686" cy="286" r="14" fill="#ffe9b0" opacity=".22"/>
+
+          <!-- crank + pedals -->
+          <g transform="translate(588 352)">
+            <g class="crank">
+              <circle r="16" fill="none" stroke="#8fa3bf" stroke-width="4"/>
+              <line x1="-20" y1="0" x2="20" y2="0" stroke="#cfd8ee" stroke-width="5"/>
+              <rect x="-27" y="-5" width="14" height="10" rx="3" fill="#55e0c8"/>
+              <rect x="13" y="-5" width="14" height="10" rx="3" fill="#55e0c8"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+
+    <!-- motion lines -->
+    <g stroke="#ffffff" stroke-opacity=".18" stroke-width="3" stroke-linecap="round">
+      <line x1="180" y1="470" x2="300" y2="470"/>
+      <line x1="140" y1="510" x2="250" y2="510"/>
+      <line x1="200" y1="550" x2="290" y2="550"/>
+    </g>
+  </svg>
+
+  <div class="title">S3AI · 抽象艺术<b>自行车骑马</b></div>
+  <div class="hint">svg + css animation</div>
+</div>
+</body>
+</html>
